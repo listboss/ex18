@@ -1,0 +1,6 @@
+[package]
+name = "ex18"
+version = "0.1.0"
+authors = ["Hamid Ghadyani <hamid@hamid.cc>"]
+
+[dependencies]
