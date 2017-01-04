@@ -84,9 +84,9 @@ impl Light for Grid {
         }
         if stuck_corners {
             new_grid.0[0][0] = '#';
-            new_grid.0[0][99] = '#';
-            new_grid.0[99][0] = '#';
-            new_grid.0[99][99] = '#';
+            new_grid.0[0][ncols] = '#';
+            new_grid.0[nrows][0] = '#';
+            new_grid.0[nrows][ncols] = '#';
         }
         *self = new_grid;
     }
