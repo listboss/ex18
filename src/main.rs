@@ -62,7 +62,7 @@ impl Light for Grid {
             for (j, light) in row.iter().enumerate() {
                 let next_j = if j != ncols - 1 { Some(j + 1) } else { None };
                 let prev_j = if j != 0 { Some(j - 1) } else { None };
-                let neighbors = [(prev_i, prev_j),
+                let lights_on = [(prev_i, prev_j),
                                  (prev_i, Some(j)),
                                  (prev_i, next_j),
                                  (Some(i), prev_j),
@@ -71,14 +71,13 @@ impl Light for Grid {
                                  (next_i, Some(j)),
                                  (next_i, next_j)]
                     .iter()
-                    .filter(|&&(i, j)| i.is_some() && j.is_some())
-                    .map(|&(i, j): &(Option<usize>, Option<usize>)| (i.unwrap(), j.unwrap()))
-                    .collect::<Vec<_>>();
-                let no_neighbors_that_are_on =
-                    neighbors.iter().filter(|&&(i, j)| self.0[i][j] == '#').count();
+                    .filter(|&&(i, j)| {
+                        i.is_some() && j.is_some() && self.0[i.unwrap()][j.unwrap()] == '#'
+                    })
+                    .count();
                 match *light {
-                    '#' if ![2, 3].contains(&no_neighbors_that_are_on) => new_grid.0[i][j] = '.',
-                    '.' if no_neighbors_that_are_on == 3 => new_grid.0[i][j] = '#',
+                    '#' if ![2, 3].contains(&lights_on) => new_grid.0[i][j] = '.',
+                    '.' if lights_on == 3 => new_grid.0[i][j] = '#',
                     _ => (),
                 }
             }
@@ -92,6 +91,7 @@ impl Light for Grid {
         *self = new_grid;
     }
 }
+
 fn main() {
     let mut grid = Grid::new(include_str!("../input.txt"));
     for _ in 1..101 {
