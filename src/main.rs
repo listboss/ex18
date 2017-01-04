@@ -10,6 +10,8 @@ impl Clone for Grid {
 
 impl Grid {
     fn new(inp: &str) -> Grid {
+        assert_eq!(inp.lines().count(), 100);
+        assert_eq!(100, inp.lines().next().unwrap_or("").len());
         fn initiate(grid: &mut Grid, inp: &str) {
             inp.lines()
                 .enumerate()
