@@ -9,11 +9,11 @@ impl Clone for Grid {
 }
 
 impl Grid {
-    fn new(inp: &str) -> Grid {
-        assert_eq!(inp.lines().count(), 100);
-        assert_eq!(100, inp.lines().next().unwrap_or("").len());
-        fn initiate(grid: &mut Grid, inp: &str) {
-            inp.lines()
+    fn new(input: &str) -> Grid {
+        assert_eq!(input.lines().count(), 100);
+        assert_eq!(100, input.lines().next().unwrap_or("").len());
+        fn initiate(grid: &mut Grid, input: &str) {
+            input.lines()
                 .enumerate()
                 .map(|(x, line): (usize, &str)| {
                     line.chars()
@@ -27,8 +27,8 @@ impl Grid {
         let mut grid = Grid([['.'; 100]; 100]);
 
         // If input string is empty, return a blank grid with default value.
-        if inp.len() != 0 {
-            initiate(&mut grid, inp);
+        if input.len() != 0 {
+            initiate(&mut grid, input);
         }
         grid
     }
